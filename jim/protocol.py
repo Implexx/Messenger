@@ -117,16 +117,15 @@ class JimFunctions(BaseJimMessage):
             action = message[ACTION]
             if action in ACTIONS:
                 if action == PRESENCE:
-                    return JimAction(message).create_presence('Implex')
+                    return JimAction(message).create_presence
                 elif action == DEL_CONTACT:
                     return JimAction.delete_contact()
                 elif action == ADD_CONTACT:
-
+                    return JimAction.add_contact()
                 elif action == CONTACT_LIST:
-
+                    return JimAction.contact_list()
                 elif action == GET_CONTACTS:
-
-
+                    return JimAction.get_contacts()
 
 
 
@@ -134,12 +133,22 @@ class JimAction(JimFunctions):
     """
     Прописаны действия Джин
     """
+    @staticmethod
     def create_presence(self, login):
         self.__dict__[ACTION] = PRESENCE
-        self.__dict__[TIME] =
         result = self.__dict__
+        result[ACCOUNT_NAME] = login
+        return result
 
-        result[]
+    def delete_contact(self, login):
+        self.__dict__[ACTION] = GET_CONTACTS
+        result = self.__dict__
+        result[ACCOUNT_NAME] = login
+        return result
 
-
+    def add_contact(self, login):
+        self.__dict__[ACTION] = ADD_CONTACT
+        result = self.__dict__
+        result[ACCOUNT_NAME] = login
+        return result
 
